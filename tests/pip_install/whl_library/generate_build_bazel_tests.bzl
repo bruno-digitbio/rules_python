@@ -32,6 +32,16 @@ filegroup(
 )
 
 filegroup(
+    name = "so",
+    srcs = glob(["data/**"], allow_empty = True),
+)
+
+filegroup(
+    name = "bin",
+    srcs = glob(["data/**"], allow_empty = True),
+)
+
+filegroup(
     name = "data",
     srcs = glob(["data/**"], allow_empty = True),
 )

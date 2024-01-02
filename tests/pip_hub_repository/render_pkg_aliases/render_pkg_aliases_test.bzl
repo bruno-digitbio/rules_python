@@ -45,6 +45,16 @@ alias(
 )
 
 alias(
+    name = "so",
+    actual = "@pypi_foo//:so",
+)
+
+alias(
+    name = "bin",
+    actual = "@pypi_foo//:bin",
+)
+
+alias(
     name = "data",
     actual = "@pypi_foo//:data",
 )

@@ -19,6 +19,12 @@ def requirement(name):
 def whl_requirement(name):
     return "%%MACRO_TMPL%%".format(pip_utils.normalize_name(name), "whl")
 
+def so_requirement(name):
+    return "%%MACRO_TMPL%%".format(pip_utils.normalize_name(name), "so")
+
+def bin_requirement(name):
+    return "%%MACRO_TMPL%%".format(pip_utils.normalize_name(name), "bin")
+
 def data_requirement(name):
     return "%%MACRO_TMPL%%".format(pip_utils.normalize_name(name), "data")
 

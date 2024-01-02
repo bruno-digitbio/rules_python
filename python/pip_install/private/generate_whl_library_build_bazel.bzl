@@ -18,6 +18,8 @@ load("//python/private:normalize_name.bzl", "normalize_name")
 
 _WHEEL_FILE_LABEL = "whl"
 _PY_LIBRARY_LABEL = "pkg"
+_SO_LABEL = "so"
+_BIN_LABEL = "bin"
 _DATA_LABEL = "data"
 _DIST_INFO_LABEL = "dist_info"
 _WHEEL_ENTRY_POINT_PREFIX = "rules_python_wheel_entry_point"
@@ -51,6 +53,16 @@ package(default_visibility = ["//visibility:public"])
 filegroup(
     name = "{dist_info_label}",
     srcs = glob(["site-packages/*.dist-info/**"], allow_empty = True),
+)
+
+filegroup(
+    name = "{so_label}",
+    srcs = glob(["**/*.so"], allow_empty = True),
+)
+
+filegroup(
+    name = "{bin_label}",
+    srcs = glob(["bin/**"], allow_empty = True),
 )
 
 filegroup(
@@ -156,6 +168,8 @@ def generate_whl_library_build_bazel(
 
     lib_dependencies = [
         "@" + repo_prefix + normalize_name(d) + "//:" + _PY_LIBRARY_LABEL
+        if normalize_name(d) != "torch"
+        else "@digital_biology//third_party/pytorch"
         for d in dependencies
     ]
     whl_file_deps = [
@@ -173,6 +187,8 @@ def generate_whl_library_build_bazel(
                 whl_file_label = _WHEEL_FILE_LABEL,
                 whl_file_deps = repr(whl_file_deps),
                 tags = repr(tags),
+                so_label = _SO_LABEL,
+                bin_label = _BIN_LABEL,
                 data_label = _DATA_LABEL,
                 dist_info_label = _DIST_INFO_LABEL,
                 entry_point_prefix = _WHEEL_ENTRY_POINT_PREFIX,

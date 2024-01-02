@@ -144,7 +144,7 @@ def _render_common_aliases(repo_name, name, versions = None, default_version = N
                 default_version = default_version,
                 rules_python = rules_python,
             )
-            for target in ["pkg", "whl", "data", "dist_info"]
+            for target in ["pkg", "whl", "so", "bin", "data", "dist_info"]
         ],
     )
 
