@@ -21,6 +21,7 @@ _PY_LIBRARY_LABEL = "pkg"
 _SO_LABEL = "so"
 _BIN_LABEL = "bin"
 _DATA_LABEL = "data"
+_SITE_PACKAGES_LABEL = "site_packages"
 _DIST_INFO_LABEL = "dist_info"
 _WHEEL_ENTRY_POINT_PREFIX = "rules_python_wheel_entry_point"
 
@@ -49,6 +50,11 @@ load("@rules_python//python:defs.bzl", "py_library", "py_binary")
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "{site_packages_label}",
+    srcs = glob(["site-packages/**"], exclude=["site-packages/*.dist-info/**"], allow_empty = True),
+)
 
 filegroup(
     name = "{dist_info_label}",
@@ -190,6 +196,7 @@ def generate_whl_library_build_bazel(
                 so_label = _SO_LABEL,
                 bin_label = _BIN_LABEL,
                 data_label = _DATA_LABEL,
+                site_packages_label = _SITE_PACKAGES_LABEL,
                 dist_info_label = _DIST_INFO_LABEL,
                 entry_point_prefix = _WHEEL_ENTRY_POINT_PREFIX,
                 srcs_exclude = repr(srcs_exclude),

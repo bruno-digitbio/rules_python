@@ -21,6 +21,9 @@ _annotations = %%ANNOTATIONS%%
 def requirement(name):
     return "%%MACRO_TMPL%%".format(pip_utils.normalize_name(name), "pkg")
 
+def site_packages(name):
+    return "%%MACRO_TMPL%%".format(pip_utils.normalize_name(name), "site_packages")
+
 def whl_requirement(name):
     return "%%MACRO_TMPL%%".format(pip_utils.normalize_name(name), "whl")
 

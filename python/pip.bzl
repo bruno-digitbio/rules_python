@@ -110,6 +110,9 @@ def _process_requirements(pkg_labels, python_version, repo_prefix):
 def requirement(name):
     return "{macro_tmpl}".format(pip_utils.normalize_name(name), "pkg")
 
+def site_packages(name):
+    return "{macro_tmpl}".format(pip_utils.normalize_name(name), "site_packages")
+
 def whl_requirement(name):
     return "{macro_tmpl}".format(pip_utils.normalize_name(name), "whl")
 
