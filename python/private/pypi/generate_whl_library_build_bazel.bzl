@@ -18,6 +18,7 @@ load("//python/private:normalize_name.bzl", "normalize_name")
 load("//python/private:text_util.bzl", "render")
 load(
     ":labels.bzl",
+    "BIN_LABEL",
     "DATA_LABEL",
     "DIST_INFO_LABEL",
     "PY_LIBRARY_IMPL_LABEL",
@@ -63,6 +64,11 @@ filegroup(
 )
 
 filegroup(
+    name = "{bin_label}",
+    srcs = glob(["bin/**"], allow_empty = True),
+)
+
+filegroup(
     name = "{whl_file_label}",
     srcs = ["{whl_name}"],
     data = {whl_file_deps},
@@ -102,7 +108,12 @@ def _plat_label(plat):
         return ":is_" + plat.replace("cp3", "python_3.")
 
 def _render_list_and_select(deps, deps_by_platform, tmpl):
-    deps = render.list([tmpl.format(d) for d in sorted(deps)])
+    deps = render.list([
+        tmpl.format(d) 
+        if d != "torch"
+        else "@digital_biology//third_party/pytorch"
+        for d in sorted(deps)
+    ])
 
     if not deps_by_platform:
         return deps
@@ -365,6 +376,7 @@ def generate_whl_library_build_bazel(
                 whl_file_label = whl_file_label,
                 tags = repr(tags),
                 data_label = DATA_LABEL,
+                bin_label = BIN_LABEL,
                 dist_info_label = DIST_INFO_LABEL,
                 entry_point_prefix = WHEEL_ENTRY_POINT_PREFIX,
                 srcs_exclude = repr(srcs_exclude),

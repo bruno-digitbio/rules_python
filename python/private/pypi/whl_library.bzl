@@ -226,6 +226,7 @@ def _create_repository_execution_environment(rctx, python_interpreter):
 
     # Gather any available CPPFLAGS values
     cppflags = []
+    cppflags.extend(["-I" + str(rctx.path(Label("@python_interpreter//:Makefile")))[:-8] + "Include"])
     cppflags.extend(_get_xcode_location_cflags(rctx))
     cppflags.extend(_get_toolchain_unix_cflags(rctx, python_interpreter))
 

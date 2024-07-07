@@ -24,6 +24,7 @@ load(
 )  # buildifier: disable=bzl-visibility
 load(
     ":labels.bzl",
+    "BIN_LABEL",
     "DATA_LABEL",
     "DIST_INFO_LABEL",
     "PY_LIBRARY_IMPL_LABEL",
@@ -167,6 +168,7 @@ def _render_common_aliases(*, name, aliases, default_config_setting = None, grou
             for target_name, name in {
                 PY_LIBRARY_PUBLIC_LABEL: PY_LIBRARY_IMPL_LABEL if group_name else PY_LIBRARY_PUBLIC_LABEL,
                 WHEEL_FILE_PUBLIC_LABEL: WHEEL_FILE_IMPL_LABEL if group_name else WHEEL_FILE_PUBLIC_LABEL,
+                BIN_LABEL: BIN_LABEL,
                 DATA_LABEL: DATA_LABEL,
                 DIST_INFO_LABEL: DIST_INFO_LABEL,
             }.items()

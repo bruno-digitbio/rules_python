@@ -87,6 +87,9 @@ def whl_requirement(name):
 def data_requirement(name):
     return "{macro_tmpl}".format(pip_utils.normalize_name(name), "data")
 
+def bin_requirement(name):
+    return "{macro_tmpl}".format(pip_utils.normalize_name(name), "bin")
+
 def dist_info_requirement(name):
     return "{macro_tmpl}".format(pip_utils.normalize_name(name), "dist_info")
 
